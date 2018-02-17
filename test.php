@@ -19,10 +19,19 @@ and open the template in the editor.
         <?php
          if (!empty($_GET["test"])) 
              { echo " Вы проходите тест: ";} 
-         else { echo "Выберите тест по ссылке в меню."; exit;}
+         else { 
+             header($_SERVER['SERVER_PROTOCOL']. ' 404 Not Found');
+             echo "Выберите тест по ссылке в меню."; 
+             exit;
+         }
          $name = $_GET["test"];
          $dir = __DIR__ . DIRECTORY_SEPARATOR. "test";
          chdir($dir);
+         if (!file_exists($name)) {
+             header($_SERVER['SERVER_PROTOCOL']. ' 404 Not Found');
+             echo "Такого теста нет, выберите другой тест по ссылке в меню."; 
+             exit;
+         }
          $string = file_get_contents($name);
          $data = json_decode($string, TRUE);
          echo $data[0]['main'];

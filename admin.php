@@ -54,7 +54,8 @@
                  else {
                      $new_test = $uploads_dir. $name;
                      rename($name, $new_test);
-                     echo "Файл с тестами загружен";
+                     header('Location: list.php');
+                     exit;
                        }
             }
             else {

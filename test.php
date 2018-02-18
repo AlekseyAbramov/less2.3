@@ -66,7 +66,25 @@ and open the template in the editor.
                }
              $s = $s + 1;
              }
-             echo 'Всего правильных ответов '. $m;
+             echo 'Всего правильных ответов '. $m. '<br>';
+             $long = count($data) - 1;
+             if ($m >= $long){
+                 echo 'Поздравляем! Вы успешно прошли тест.';
+                 session_start();
+                 $_SESSION['main'] = $data[0]['main'];
+                 $_SESSION['point'] = $m;
+                 $_SESSION['long'] = count($data);
+                 ?>
+        <form method="get" action="diplom.php" enctype="multipart/form-data">
+            <strong>Введите ваше имя</strong>
+            <input type="text" name="name">
+            <input type="submit" value="Отправить">
+        </form>
+                <?php
+             }
+             else {
+                 echo 'Попробуйте пройти тест еще раз.';
+             }
         }
         ?>
     </body>
